@@ -1,25 +1,81 @@
-# Laravel + React Starter Kit
+# Hospital Management System
 
-## Introduction
+A Laravel + React (Inertia.js) based hospital management system.
 
-Our React starter kit provides a robust, modern starting point for building Laravel applications with a React frontend using [Inertia](https://inertiajs.com).
+## Tech Stack
 
-Inertia allows you to build modern, single-page React applications using classic server-side routing and controllers. This lets you enjoy the frontend power of React combined with the incredible backend productivity of Laravel and lightning-fast Vite compilation.
+- **Backend:** Laravel 12, PostgreSQL
+- **Frontend:** React 19, TypeScript, Tailwind CSS, Inertia.js
+- **Build Tool:** Vite
 
-This React starter kit utilizes React 19, TypeScript, Tailwind, and the [shadcn/ui](https://ui.shadcn.com) and [radix-ui](https://www.radix-ui.com) component libraries.
+## Requirements
 
-## Official Documentation
+- PHP >= 8.2
+- Composer
+- Node.js >= 20
+- PostgreSQL
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
+## Setup Instructions
 
-## Contributing
+### 1. Clone the repository
 
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/Mashiur1285/hospital-management.git
+cd hospital-management
+```
 
-## Code of Conduct
+### 2. Install PHP dependencies
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer install
+```
 
-## License
+### 3. Install Node dependencies
 
-The Laravel + React starter kit is open-sourced software licensed under the MIT license.
+```bash
+npm install
+```
+
+### 4. Environment setup
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 5. Configure database
+
+`.env` file এ PostgreSQL credentials দাও:
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5433
+DB_DATABASE=hospital_management
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+### 6. Create database
+
+PostgreSQL এ `hospital_management` নামে একটা database বানাও।
+
+### 7. Run migrations
+
+```bash
+php artisan migrate
+```
+
+### 8. Start the development server
+
+দুইটা আলাদা terminal এ run করো:
+
+```bash
+# Terminal 1 - Laravel server
+php artisan serve
+
+# Terminal 2 - Vite dev server
+npm run dev
+```
+
+এরপর browser এ যাও: **http://localhost:8000**
