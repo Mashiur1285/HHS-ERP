@@ -3,10 +3,13 @@ import {
     Building2,
     CalendarDays,
     LayoutDashboard,
+    List,
     Settings,
     Stethoscope,
+    UserPlus,
     Users,
 } from 'lucide-react';
+import SidebarMultiLevelMenu from './Partials/SidebarMultiLevelMenu';
 import SidebarSingleLink from './Partials/SidebarSingleLink';
 
 export default function TheSidebar() {
@@ -28,10 +31,13 @@ export default function TheSidebar() {
                         href="/patients"
                         icon={Users}
                     />
-                    <SidebarSingleLink
+                    <SidebarMultiLevelMenu
                         label="Doctors"
-                        href="/doctors"
                         icon={Stethoscope}
+                        submenu={[
+                            { label: 'All Doctors', href: '/doctors', icon: List },
+                            { label: 'Add Doctor', href: '/doctors/create', icon: UserPlus },
+                        ]}
                     />
                     <SidebarSingleLink
                         label="Departments"

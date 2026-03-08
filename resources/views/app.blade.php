@@ -19,14 +19,11 @@
             })();
         </script>
 
-        {{-- Inline style to set the HTML background color based on our theme in app.css --}}
+        {{-- Inline style to set the HTML background color to match the app's light theme --}}
         <style>
             html {
-                background-color: oklch(1 0 0);
-            }
-
-            html.dark {
-                background-color: oklch(0.145 0 0);
+                background-color: #f3f4f6;
+                overscroll-behavior: none;
             }
         </style>
 
@@ -43,7 +40,7 @@
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased overscroll-none">
         @inertia
     </body>
 </html>
