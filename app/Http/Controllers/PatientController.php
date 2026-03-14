@@ -17,8 +17,9 @@ class PatientController extends Controller
 
     public function index(): Response
     {
+    
         return Inertia::render('patients/index', [
-            'patients' => $this->patientService->list(),
+           'patients' => $this->patientService->list(),
         ]);
     }
 
@@ -32,7 +33,11 @@ class PatientController extends Controller
 
     public function store(StorePatientRequest $request)
     {
-        $this->patientService->create($request->validated());
+        $data = $request->validated();
+
+        $data['created_by'] = auth()->id();
+
+        $this->patientService->create($data);
 
         return redirect()->route('patients.index')
             ->with('success', 'Patient created successfully');
