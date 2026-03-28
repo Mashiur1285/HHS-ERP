@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\StoreInvoiceRequest;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Payment;
@@ -58,22 +58,9 @@ class InvoiceController extends Controller
      *   ]
      * }
      */
-    public function store(Request $request)
+    public function store(StoreInvoiceRequest $request)
     {
-        $request->validate([
-            'patient_id'                  => 'required|exists:patients,id',
-            'doctor_id'                   => 'nullable|exists:doctors,id',
-            'discount_type'               => 'nullable|in:flat,percent',
-            'discount_value'              => 'nullable|numeric|min:0',
-            'paid_amount'                 => 'nullable|numeric|min:0',
-            'payment_method'              => 'nullable|string',
-            'tests'                       => 'nullable|array',
-            'tests.*.test_id'             => 'required_with:tests|exists:tests,id',
-            'tests.*.price'               => 'required_with:tests|numeric|min:0',
-            'additional_items'            => 'nullable|array',
-            'additional_items.*.item_id'  => 'required_with:additional_items|exists:test_additional_items,id',
-            'additional_items.*.price'    => 'required_with:additional_items|numeric|min:0',
-        ]);
+       $validated = $request->validated();
 
         DB::beginTransaction();
 
