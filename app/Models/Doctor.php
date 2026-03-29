@@ -40,4 +40,8 @@ class Doctor extends Model
     {
         return trim("{$this->first_name} {$this->last_name}");
     }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }
