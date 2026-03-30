@@ -10,9 +10,10 @@ interface EnumCase {
 interface Props {
     genders: EnumCase[];
     bloodGroups: EnumCase[];
+    draft?: any;
 }
 
-export default function CreatePatient({ genders, bloodGroups }: Props) {
+export default function CreatePatient({ genders, bloodGroups, draft }: Props) {
     return (
         <AppLayout>
             <Head title="Add Patient" />
@@ -35,6 +36,8 @@ export default function CreatePatient({ genders, bloodGroups }: Props) {
 
                 <div className="mt-6">
                     <PatientForm
+                        initialData={draft}
+                        draftId={draft?.id}
                         genders={genders}
                         bloodGroups={bloodGroups}
                         submitUrl="/patients"

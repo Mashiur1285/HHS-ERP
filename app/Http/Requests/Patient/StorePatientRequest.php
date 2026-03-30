@@ -25,7 +25,7 @@ class StorePatientRequest extends FormRequest
             'email'            => ['nullable', 'email', 'max:150'],
             'phone'            => ['required', 'string', 'max:20'],
             'emergency_number' => ['nullable', 'string', 'max:20'],
-            'gender'           => ['required', Rule::enum(Gender::class)],
+            'gender'           => ['nullable', Rule::enum(Gender::class)],
             'date_of_birth'    => ['nullable', 'date'],
             'blood_group'      => ['nullable', Rule::enum(BloodGroup::class)],
             'nid_number'       => ['nullable', 'string', 'max:20'],
