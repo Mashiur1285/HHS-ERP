@@ -15,6 +15,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('doctors', DoctorController::class);
     Route::resource('patients', PatientController::class);
+    
+    // Draft Routes
+    Route::post('/patients/draft', [\App\Http\Controllers\DraftPatientController::class, 'store'])->name('draft-patients.store');
+    Route::delete('/patients/draft/{draft}', [\App\Http\Controllers\DraftPatientController::class, 'destroy'])->name('draft-patients.destroy');
+
     Route::post('/invoices', [InvoiceController::class, 'store']);
     Route::get('/invoices', [InvoiceController::class, 'index']);
     Route::get('/invoices/{id}', [InvoiceController::class, 'show']);

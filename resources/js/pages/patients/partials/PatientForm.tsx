@@ -13,10 +13,11 @@ interface Props {
     initialData?: any;
     submitUrl: string;
     method?: 'post' | 'put';
+    draftId?: number;
 }
 
-export default function PatientForm({ genders, bloodGroups, initialData, submitUrl, method = 'post' }: Props) {
-    const { data, setData, post, put, processing, errors } = useForm({
+export default function PatientForm({ genders, bloodGroups, initialData, submitUrl, method = 'post', draftId }: Props) {
+    const { data, setData, post, put, processing, errors, transform } = useForm({
         salutation: initialData?.salutation ?? '',
         first_name: initialData?.first_name ?? '',
         last_name: initialData?.last_name ?? '',
@@ -32,12 +33,10 @@ export default function PatientForm({ genders, bloodGroups, initialData, submitU
         guardian_id: initialData?.guardian_id ?? '',
         relation: initialData?.relation ?? '',
         patient_category: initialData?.patient_category ?? 'Out-Door',
+        draft_id: draftId ?? '',
     });
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-
-        // Calculate date of birth from age inputs
+    transform((data) => {
         let dob = '';
         if (data.age_years || data.age_months || data.age_days) {
             const today = new Date();
@@ -47,16 +46,26 @@ export default function PatientForm({ genders, bloodGroups, initialData, submitU
             dob = today.toISOString().split('T')[0];
         }
 
-        const payload = {
+        return {
             ...data,
             date_of_birth: dob ? dob : undefined,
         };
+    });
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
 
         if (method === 'put') {
-            put(submitUrl, { data: payload });
+            put(submitUrl);
         } else {
-            post(submitUrl, { data: payload });
+            post(submitUrl);
         }
+    };
+
+    const saveAsDraft = () => {
+        post('/patients/draft', {
+            preserveScroll: true,
+        });
     };
 
     const inputClasses = "w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50/50 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition";
@@ -140,7 +149,7 @@ export default function PatientForm({ genders, bloodGroups, initialData, submitU
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                            Select Gender<span className="text-gray-500">*</span>
+                            Select Gender
                         </label>
                         <select
                             value={data.gender}
@@ -297,7 +306,9 @@ export default function PatientForm({ genders, bloodGroups, initialData, submitU
             <div className="flex items-center justify-between px-6 py-4 border-t border-gray-100 pb-8 pt-8">
                 <button
                     type="button"
-                    className="px-6 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 transition"
+                    onClick={saveAsDraft}
+                    disabled={processing}
+                    className="px-6 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-60 transition"
                 >
                     Save as Draft
                 </button>
