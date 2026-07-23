@@ -25,6 +25,7 @@ class StoreDoctorRequest extends FormRequest
             'bmdc'             => ['nullable', 'string', 'max:16'],
             'specialties'      => ['nullable', 'string'],
             'designation'      => ['nullable', 'string'],
+            'commission_percentage' => ['nullable', 'numeric', 'min:0', 'max:100'],
             'date_of_birth'    => ['nullable', 'date'],
             'gender'           => ['required', Rule::enum(Gender::class)],
             'blood_group'      => ['nullable', Rule::enum(BloodGroup::class)],

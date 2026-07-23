@@ -30,8 +30,11 @@ const getStoredAppearance = (): Appearance => {
     return (localStorage.getItem('appearance') as Appearance) || 'system';
 };
 
-const isDarkMode = (appearance: Appearance): boolean => {
-    return appearance === 'dark' || (appearance === 'system' && prefersDark());
+// This app is designed as a light-only theme (all pages use light colours and
+// the HTML background is fixed to a light shade). Dark mode is intentionally
+// disabled so shadcn theme tokens on the settings pages stay readable.
+const isDarkMode = (_appearance: Appearance): boolean => {
+    return false;
 };
 
 const applyTheme = (appearance: Appearance): void => {

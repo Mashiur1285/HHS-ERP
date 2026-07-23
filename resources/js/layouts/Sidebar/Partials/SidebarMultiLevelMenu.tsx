@@ -35,16 +35,16 @@ export default function SidebarMultiLevelMenu({ label, icon: Icon, submenu }: Pr
         <li>
             <div className="flex flex-col space-y-1">
                 <div
-                    className={`flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group cursor-pointer transition-colors duration-200 ${isActive ? 'bg-gray-100' : ''}`}
+                    className={`flex items-center p-2 text-white/90 rounded-lg hover:bg-white/10 hover:text-white group cursor-pointer transition-colors duration-200 ${isActive ? 'bg-white/20 text-white font-medium' : ''}`}
                     onClick={() => setIsOpen((prev) => !prev)}
                 >
                     <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-gray-700" />
+                        <Icon className="w-5 h-5" />
                     </div>
                     <span className="ml-3 text-sm tracking-wide truncate flex-1">{label}</span>
                     <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
                         <ChevronDown
-                            className={`w-3 h-4 text-gray-700 transition-transform duration-200 ease-in-out ${isOpen ? 'rotate-180' : ''}`}
+                            className={`w-3 h-4 transition-transform duration-200 ease-in-out ${isOpen ? 'rotate-180' : ''}`}
                         />
                     </div>
                 </div>

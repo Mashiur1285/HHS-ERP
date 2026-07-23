@@ -20,6 +20,7 @@ class Doctor extends Model
         'bmdc',
         'specialties',
         'designation',
+        'commission_percentage',
         'date_of_birth',
         'gender',
         'blood_group',
@@ -29,11 +30,12 @@ class Doctor extends Model
     ];
 
     protected $casts = [
-        'gender'         => Gender::class,
-        'blood_group'    => BloodGroup::class,
-        'date_of_birth'  => 'date',
-        'is_system_user' => 'boolean',
-        'is_active'      => 'boolean',
+        'gender'                => Gender::class,
+        'blood_group'           => BloodGroup::class,
+        'date_of_birth'         => 'date',
+        'commission_percentage' => 'decimal:2',
+        'is_system_user'        => 'boolean',
+        'is_active'             => 'boolean',
     ];
 
     public function getFullNameAttribute(): string

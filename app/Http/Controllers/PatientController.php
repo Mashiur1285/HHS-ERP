@@ -46,11 +46,24 @@ class PatientController extends Controller
 
         $data['created_by'] = auth()->id();
 
-        $this->patientService->create($data);
+        $patient = $this->patientService->create($data);
 
         // If a draft was converted, delete it
         if ($request->filled('draft_id')) {
             DraftPatient::where('id', $request->draft_id)->delete();
+        }
+
+        // Quick-created from the billing desk: bounce back and auto-select it.
+        if ($request->input('redirect_to') === 'bills') {
+            return redirect()->route('bills.create')->with('newPatient', [
+                'id'               => $patient->id,
+                'first_name'       => $patient->first_name,
+                'last_name'        => $patient->last_name,
+                'phone'            => $patient->phone,
+                'gender'           => $patient->gender?->value,
+                'address'          => $patient->address,
+                'patient_category' => $patient->patient_category,
+            ]);
         }
 
         return redirect()->route('patients.index')

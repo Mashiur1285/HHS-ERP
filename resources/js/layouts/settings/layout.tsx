@@ -32,6 +32,16 @@ const sidebarNavItems: NavItem[] = [
         href: editAppearance(),
         icon: null,
     },
+    {
+        title: 'Invoice Setup',
+        href: '/settings/invoice',
+        icon: null,
+    },
+    {
+        title: 'Commission',
+        href: '/settings/commission',
+        icon: null,
+    },
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {

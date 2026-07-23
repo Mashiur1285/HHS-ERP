@@ -16,12 +16,18 @@ class StoreInvoiceRequest extends FormRequest
     public function rules(): array
 {
     return [
+        'patient_id' => 'required|exists:patients,id',
+        'doctor_id' => 'nullable|exists:doctors,id',
+        'agent_id' => 'nullable|exists:agents,id',
         'discount_type' => 'nullable|in:flat,percent',
         'discount_value' => 'nullable|numeric|min:0',
+        'doctor_discount' => 'nullable|numeric|min:0|max:100',
+        'doctor_commission_percentage' => 'nullable|numeric|min:0|max:100',
+        'agent_commission_percentage' => 'nullable|numeric|min:0|max:100',
         'paid_amount' => 'nullable|numeric|min:0',
         'payment_method' => 'nullable|string',
 
-        'tests' => 'nullable|array',
+        'tests' => 'required_without:additional_items|array|min:1',
         'tests.*.test_id' => 'required_with:tests|exists:tests,id',
         'tests.*.price' => 'required_with:tests|numeric|min:0',
 

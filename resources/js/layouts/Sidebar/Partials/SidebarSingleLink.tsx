@@ -22,10 +22,10 @@ export default function SidebarSingleLink({ href, label, icon: Icon, active = fa
         <li>
             <Link
                 href={href}
-                className={`flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group transition-colors duration-200 ${isActive ? 'bg-gray-100' : ''}`}
+                className={`flex items-center p-2 text-white/90 rounded-lg hover:bg-white/10 hover:text-white group transition-colors duration-200 ${isActive ? 'bg-white/20 text-white font-medium' : ''}`}
             >
                 <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-gray-700" />
+                    <Icon className="w-5 h-5" />
                 </div>
                 <span className="ml-3 text-sm tracking-wide truncate">{label}</span>
             </Link>

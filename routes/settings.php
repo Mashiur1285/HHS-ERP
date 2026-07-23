@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Settings\CommissionSettingsController;
+use App\Http\Controllers\Settings\InvoiceSettingsController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
@@ -25,4 +27,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('settings/two-factor', [TwoFactorAuthenticationController::class, 'show'])
         ->name('two-factor.show');
+
+    Route::get('settings/invoice', [InvoiceSettingsController::class, 'edit'])->name('invoice-settings.edit');
+    Route::post('settings/invoice', [InvoiceSettingsController::class, 'update'])->name('invoice-settings.update');
+
+    Route::get('settings/commission', [CommissionSettingsController::class, 'edit'])->name('commission-settings.edit');
+    Route::post('settings/commission', [CommissionSettingsController::class, 'update'])->name('commission-settings.update');
 });

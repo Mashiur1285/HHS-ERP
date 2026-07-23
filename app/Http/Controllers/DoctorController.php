@@ -32,7 +32,20 @@ class DoctorController extends Controller
 
     public function store(StoreDoctorRequest $request)
     {
-        $this->doctorService->create($request->validated());
+        $doctor = $this->doctorService->create($request->validated());
+
+        // Quick-created from the billing desk: bounce back and auto-select it.
+        if ($request->input('redirect_to') === 'bills') {
+            return redirect()->route('bills.create')->with('newDoctor', [
+                'id'                    => $doctor->id,
+                'first_name'            => $doctor->first_name,
+                'last_name'             => $doctor->last_name,
+                'personal_number'       => $doctor->personal_number,
+                'designation'           => $doctor->designation,
+                'specialties'           => $doctor->specialties,
+                'commission_percentage' => (float) $doctor->commission_percentage,
+            ]);
+        }
 
         return redirect()->route('doctors.index')->with('success', 'Doctor created successfully');
     }
